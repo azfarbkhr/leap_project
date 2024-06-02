@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contacts</title>
+    <!-- Include htmx and Alpine.js libraries -->
+    <script src="https://unpkg.com/htmx.org"></script>
+</head>
+<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+    <a href="{% url 'contacts' %}">Contacts</a>
+    <a href="{% url 'emails' %}">Emails</a>
+    <h1>Contacts</h1>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Email Count</th>
+            <th>Default Activity</th>
+        </tr>
+        {% for contact in contacts %}
+        <tr>
+            <td>{{ contact.name }}</td>
+            <td>{{ contact.get_email_count }}</td>
+            <td>
+                <select name="default_activity" hx-post="{% url 'contacts' contact.id %}" hx-trigger="change" hx-swap="none">
+                    <option value="NEW" {% if contact.default_activity == 'NEW' %}selected{% endif %}>NEW</option>
+                    <option value="DELETE" {% if contact.default_activity == 'DELETE' %}selected{% endif %}>DELETE</option>
+                    <option value="MARK AS READ" {% if contact.default_activity == 'MARK AS READ' %}selected{% endif %}>MARK AS READ</option>
+                </select>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

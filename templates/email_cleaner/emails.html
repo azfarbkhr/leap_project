@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Emails</title>
+</head>
+<body>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <a href="{% url 'contacts' %}">Contacts</a>
+    <a href="{% url 'emails' %}">Emails</a>
+    
+
+    <h1>Emails</h1>
+    <a href="{% url 'import_emails_from_gmail' %}">Import Emails From Gmail</a>
+    <a href="{% url 'update_emails_in_gmail' %}">Update Emails In Gmail</a>
+    <a href="{% url 'analyze_emails_using_llm_internal' %}">Analyze Emails Using LLM</a>
+    {% if is_gmail_authentication_broken == "True"  %}
+        <a href="{% url 'connect_to_gmail' %}">Connect to GMAIL</a>
+    {% endif %}
+    <table>
+        <tr>
+            <th>Sender</th>
+            <th>Subject</th>
+            <th>Snippet</th>
+            <th>Status</th>
+            <th>Expected Activity</th>
+            <th>Category</th>
+            <th>Summary</th>
+        </tr>
+        {% for email in emails %}
+        <tr>
+            <td>{{ email.sender.name }}</td>
+            <td>{{ email.subject }}</td>
+            <td>{{ email.snippet }}</td>
+            <td>{{ email.status }}</td>
+            <td>{{ email.sender.default_activity }}</td>
+            <td>{{ email.auto_generated_category }}</td>
+            <td>{{ email.auto_generated_summary }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

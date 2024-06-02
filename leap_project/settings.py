@@ -37,12 +37,15 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "after_response",
+    "massadmin",    
     "core", 
     "financial_tracking",
     "habit_tracking",
     "journaling",
     "task_management", 
     "time_tracking",
+    "email_cleaner",
 ]
 
 MIDDLEWARE = [
@@ -60,7 +63,7 @@ ROOT_URLCONF = "leap_project.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [ BASE_DIR / "templates" ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
